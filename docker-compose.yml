@@ -1,0 +1,55 @@
+version: "4"
+
+services:
+  bannertest:
+    build:
+      context: .
+      dockerfile: DockerFile
+    networks:
+      - banner_network
+    image: bannertestapp
+    container_name: bannertest
+    restart: unless-stopped
+    volumes:
+      - ./app:/var/app
+
+
+  webserverbanner:
+    build:
+      context: .
+      dockerfile: DockerFile_Nginx
+    networks:
+      - banner_network
+    image: nginx
+    container_name: webserverbanner
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./app/www:/var/app/www
+      - ./config/nginx/:/etc/nginx/conf.d/
+    depends_on:
+      - bannertest
+
+  bannerdb:
+    image: mariadb:10.6.4-focal
+    networks:
+      - banner_network
+    container_name: bannerdb
+    environment:
+      MYSQL_DATABASE: banner
+      MYSQL_ROOT_PASSWORD: r00tadmin
+    ports:
+      - "3307:3306"
+    volumes:
+      - "./db:/var/lib/mysql"
+      - ./banner.sql:/var/lib/mysql/banner.sql
+
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  banner_network:
+    driver: bridge
