@@ -12,7 +12,7 @@ $ip = $_SERVER['REMOTE_ADDR'] ?? "";
 $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? "";
 $page_url = $_SERVER['HTTP_REFERER'] ?? "";
 $view_date = date('Y-m-d') ?? "";
-//print_r($page_url);
+print_r($page_url);
 $sql =  sprintf("SELECT * from banners where ip = '%s' and view_date = '%s' and user_agent = '%s' and page_url = '%s' ", addcslashes($ip, '"\\'), addcslashes($view_date, '"\\'), addcslashes($user_agent, '"\\'), addcslashes($page_url, '"\\'));
 $res = \App\Database::exec_query($sql);
 $banner = $res->fetch();

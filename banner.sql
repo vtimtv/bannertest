@@ -6,7 +6,7 @@ CREATE TABLE `banners` (
                           `ip` varchar(255) DEFAULT NULL,
                           `user_agent` TEXT DEFAULT NULL,
                           `view_date` DATE,
-                          `page_url` varchar(3) DEFAULT NULL,
+                          `page_url` TEXT DEFAULT NULL,
                           `views_count` int(10) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
