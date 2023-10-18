@@ -32,11 +32,13 @@ class Database
 
     private static function check_db_result($dbres, $abort_on_err = true)
     {
+        //todo change echp to normal response with error
         if (!$dbres && $abort_on_err) echo self::$pdo->errorInfo()[2];
     }
 
     final public static function exec_query($sql, $abort_on_err = true)
     {
+        //todo change echp to normal response with error
         if (trim($sql) == '') echo 'Empty db-query';
         $dbconn = self::get_connection();
         $dbres = $dbconn->query($sql);
